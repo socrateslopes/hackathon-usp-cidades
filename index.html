@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Posso ir?</title>
+        <link rel="stylesheet" href="fonts.css">
+        <style>
+            *  { margin: 0; padding: 0; list-style: none; border: none; }
+
+            /* geral */
+            .fleft { float: left; }
+            .fright { float: right; }
+            .clr { clear: both; }
+            .overflow { overflow: hidden; }
+
+            .space-bottom { margin-bottom: 10px; }
+            .space-right { margin-right: 8px; }
+            
+            .title { font-size: 18px; }
+            
+            .none { display: none; }
+
+            html { height: 100% }
+            body {
+                width: 320px; height: 480px;
+                margin: 0;
+                padding: 0;
+            }
+            #map-canvas { width: 320px; height: 404px; }
+
+            #header {
+                height: 38px;
+                background: #7db9e8;
+                background: -moz-linear-gradient(top, #7db9e8 1%, #476d99 100%);
+                padding-left: 10px;
+            }
+            #header-title { padding: 10px 10px 10px 0; color: #FFF; }
+            #header-menu {
+                width: 38px;
+                height: 38px;
+                text-align: center;
+                padding-top: 4px;
+            }
+
+            #footer {
+                background: #7db9e8;
+                height: 38px;
+            }
+            #footer-geo { padding: 4px 0 0 8px; }
+            #footer-geo-ico { padding-right: 7px; border-right: 1px solid #C9D9E5; }
+            
+            #footer-search { height: 38px; }
+            #footer-search-text {
+                width: 214px;
+                height: 25px;
+                font-size: 18px;
+                padding: 4px;
+                margin-top: 3px;
+            }
+            #footer-search-action {
+                background: #7db9e8;
+                background: -moz-linear-gradient(top, #7db9e8 0%, #476d99 50%, #7db9e8 100%);
+                height: 38px;
+                width: 38px;
+                color: #FFF;
+                font-size: 16px;
+                cursor: pointer;
+            }
+        </style>
+
+        <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu7WEdCk9e2-51IYjblu1KYkzi_Ol-4jA&sensor=false">
+        </script>
+
+        <script type="text/javascript">
+            function initialize() {
+                var mapOptions = {
+                  center: new google.maps.LatLng(-34.397, 150.644),
+                  zoom: 4,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("map-canvas"),
+                    mapOptions);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+    </head>
+    <body>
+        <header id="header" class="overflow">
+            <h1 id="header-title" class="title fleft">Posso ir?</h1>
+            <a href="#nav-menu" id="header-menu" class="fright">
+                <img src="./images/header/menu.png">
+            </a>
+        </header><!-- #header -->
+
+        <nav id="nav-menu" class="none">
+            <ul>
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li>Item 4</li>
+            </ul>
+        </nav>
+
+        <article id="map-canvas" class="clr">
+        </article><!-- #map-canvas -->
+
+        <footer id="footer">
+            <a href="" id="footer-geo" class="fleft space-right">
+                <img id="footer-geo-ico" src="./images/footer/geolocation.png">
+            </a>
+
+            <form id="footer-search" action="#">
+                <input type="text" id="footer-search-text">
+                <input type="submit" value="Ir!" id="footer-search-action" class="fright">
+            </form><!-- footer-search -->
+        </footer><!-- #footer -->
+    </body>
+</html>
