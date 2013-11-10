@@ -73,7 +73,9 @@
         sensor (a GPS locator) to determine the user's location.
         See: https://developers.google.com/maps/documentation/javascript/tutorial#Loading_the_Maps_API
         -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> -->
+
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
         <script>
         // Note: This example requires that you consent to location sharing when
@@ -81,7 +83,8 @@
         // is probably because you have denied permission for location sharing.
         
         var map;
-        
+        var markers = [];
+
         function initialize() {
           var mapOptions = {
             zoom: 15,
@@ -110,6 +113,53 @@
             // Browser doesn't support Geolocation
             handleNoGeolocation(false);
           }
+
+
+  // Create the search box and link it to the UI element.
+  var input = document.getElementById('footer-search-text');
+  var searchBox = new google.maps.places.SearchBox(input);
+ google.maps.event.addListener(searchBox, 'places_changed', function() {
+    var places = searchBox.getPlaces();
+
+    for (var i = 0, marker; marker = markers[i]; i++) {
+      marker.setMap(null);
+    }
+
+    // For each place, get the icon, place name, and location.
+    markers = [];
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0, place; place = places[i]; i++) {
+      var image = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+      // Create a marker for each place.
+      var marker = new google.maps.Marker({
+        map: map,
+        icon: image,
+        title: place.name,
+        position: place.geometry.location
+      });
+
+      markers.push(marker);
+
+      bounds.extend(place.geometry.location);
+    }
+
+    map.fitBounds(bounds);
+  });
+  // [END region_getplaces]
+
+  // Bias the SearchBox results towards places that are within the bounds of the
+  // current map's viewport.
+  google.maps.event.addListener(map, 'bounds_changed', function() {
+    var bounds = map.getBounds();
+    searchBox.setBounds(bounds);
+  });
         }
                 
         google.maps.event.addDomListener(window, 'load', initialize);
@@ -118,12 +168,16 @@
  
     </head>
     <body>
-        <header id="header" class="overflow">
-            <h1 id="header-title" class="title fleft">Posso ir?</h1>
-            <a href="#nav-menu" id="header-menu" class="fright">
-                <img src="./images/header/menu.png">
+        <header id="footer">
+            <a href="" id="footer-geo" class="fleft space-right">
+                <img id="footer-geo-ico" src="./images/footer/geolocation.png">
             </a>
-        </header><!-- #header -->
+
+            <form id="footer-search" action="#">
+                <input type="text" id="footer-search-text">
+                <input type="submit" value="Ir!" id="footer-search-action" class="fright">
+            </form><!-- footer-search -->
+        </header><!-- #footer -->
 
         <nav id="nav-menu" class="none">
             <ul>
@@ -137,15 +191,11 @@
         <article id="map-canvas" class="clr">
         </article><!-- #map-canvas -->
 
-        <footer id="footer">
-            <a href="" id="footer-geo" class="fleft space-right">
-                <img id="footer-geo-ico" src="./images/footer/geolocation.png">
+        <footer id="header" class="overflow">
+            <h1 id="header-title" class="title fleft">Posso ir?</h1>
+            <a href="#nav-menu" id="header-menu" class="fright">
+                <img src="./images/header/menu.png">
             </a>
-
-            <form id="footer-search" action="#">
-                <input type="text" id="footer-search-text">
-                <input type="submit" value="Ir!" id="footer-search-action" class="fright">
-            </form><!-- footer-search -->
-        </footer><!-- #footer -->
+        </footer><!-- #header -->
     </body>
 </html>
