@@ -8,7 +8,7 @@
   },
   "permissions": {
     "geolocation":{
-        "description":"Usaremos sua localização para fornecer informações sobre a sua região"
+        "description":"Usaremos sua localização para fornecer informações sobre sua região"
     }
   },
 
