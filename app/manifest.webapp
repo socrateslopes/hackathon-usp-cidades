@@ -3,7 +3,7 @@
   "description": "App para verificar qual o nível de segurança do local onde você esta.",
   "default_locale": "pt-BR",
   "developer": {
-    "name": "Juliana Montira, Hugo Nomura, Sócrates Lopes e Marco Bruno",
+    "name": "Juliana Motira, Hugo Nomura, Sócrates Lopes e Marco Bruno",
     "url": "www.possoir.com.br"
   },
   "permissions": {
