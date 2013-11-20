@@ -2,9 +2,10 @@
   "name": "Posso ir?",
   "description": "App para verificar qual o nível de segurança do local onde você esta.",
   "default_locale": "pt-BR",
+  "version": "1.0.1",
   "developer": {
     "name": "Juliana Motira, Hugo Nomura, Sócrates Lopes e Marco Bruno",
-    "url": "www.possoir.com.br"
+    "url": "http://www.possoir.com.br"
   },
   "permissions": {
     "geolocation":{
